@@ -19,7 +19,7 @@ db=firebase.database()
 
 @app.route('/')
 def hello():
-	return render_template("dashboard.html")
+	return render_template("index.html")
 
 # def push_data(latitude, longitude):
 # 	new_car = {"name": "Car1", "location": {"latitude":latitude,"longitude":longitude}}
