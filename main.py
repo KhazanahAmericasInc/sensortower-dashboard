@@ -19,7 +19,8 @@ db=firebase.database()
 
 @app.route('/')
 def hello():
-	return render_template("dashboard.html")
+	vehicle_data = get_all_data()
+	return render_template("dashboard.html", vehicle_data = vehicle_data)
 
 # def push_data(latitude, longitude):
 # 	new_car = {"name": "Car1", "location": {"latitude":latitude,"longitude":longitude}}
@@ -29,11 +30,15 @@ def hello():
 # 	print(users.val())
 # 	# db.child("users").push()
 
-@app.route('/get_data')
+@app.route('/get_data', methods=["GET", "POST"])
 def get_all_data():
-	cars = db.child('cars').get()
-	print(cars.val())
-	return "data"
+	vehicles = db.child('vehicles').get()
+	vehicles_array = []
+	for vehicle in vehicles.each():
+		vehicles_array.append(vehicle.val())
+	# print(vehicles_array)
+	print(len(vehicles_array))
+	return vehicles_array
 
 get_all_data()
 
