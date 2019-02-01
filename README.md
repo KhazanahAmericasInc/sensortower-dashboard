@@ -1,7 +1,9 @@
 Displays the information on the sensortower in a web app.
 
 Setup instuctions:
+
 1.) Outside of the folder install virtualenv using:
+
 pip3 install virtualenv
 
 Then create a virtual environment with:
@@ -23,5 +25,7 @@ pip3 install -r requirements.txt
 Alternatively, tell FLASK the entry point for your app:
 
 set FLASK_APP=main
+
 set FLASK_ENV=development
+
 flask run 
