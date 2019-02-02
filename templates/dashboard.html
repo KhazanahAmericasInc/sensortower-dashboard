@@ -1,0 +1,11 @@
+<head>
+    <title>Sensortower Dashboard</title>
+</head>
+{% extends "template.html" %}
+{% block content %}
+<h1> Wassup</h1>
+<script>
+    vdata = {{vehicle_data|tojson}}
+    console.log(vdata)
+</script>
+{% endblock %}
