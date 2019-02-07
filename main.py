@@ -20,7 +20,8 @@ db=firebase.database()
 @app.route('/')
 def hello():
 	vehicle_data = get_all_data()
-	return render_template("dashboard.html", vehicle_data = vehicle_data)
+	vehicle_data_arr = get_all_data_arrs()
+	return render_template("dashboard.html", vehicle_data = vehicle_data, vehicle_data_arr = vehicle_data_arr)
 
 # def push_data(latitude, longitude):
 # 	new_car = {"name": "Car1", "location": {"latitude":latitude,"longitude":longitude}}
@@ -30,17 +31,34 @@ def hello():
 # 	print(users.val())
 # 	# db.child("users").push()
 
-@app.route('/get_data', methods=["GET", "POST"])
+# @app.route('/get_data', methods=["GET", "POST"])
 def get_all_data():
 	vehicles = db.child('vehicles').get()
 	vehicles_array = []
 	for vehicle in vehicles.each():
 		vehicles_array.append(vehicle.val())
 	# print(vehicles_array)
-	print(len(vehicles_array))
+	# print(vehicles_array[0])
+	# print(len(vehicles_array))
 	return vehicles_array
 
-get_all_data()
+def get_all_data_arrs():
+	vehicles = db.child('vehicles').get()
+	vehicles_array = []
+	for vehicle in vehicles.each():
+		v_obj = vehicle.val()
+		v_arr = []
+		for k, v in v_obj.items():
+			if(k!="img_data"):
+				v_arr.append(v)
+			else:
+				for k_i,v_i in v.items():
+					v_arr.append(v_i)
+		vehicles_array.append(v_arr)
+
+	return vehicles_array
+
+# get_all_data_arrs()
 
 
 if __name__ == "__main__":
