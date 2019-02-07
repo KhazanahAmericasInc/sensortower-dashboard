@@ -22,13 +22,14 @@ def hello():
 	print("RUNNING")
 	vehicle_data = get_all_data()
 	print("RECEIVED VEHICLE DATA")
-	print(len(vehicle_data))
-	return render_template("index.html", vehicle_data=vehicle_data)
+	vehicle_data_arr = get_all_data_arrs()
+	return render_template("index.html", vehicle_data = vehicle_data, vehicle_data_arr = vehicle_data_arr)
 
 
 @app.route('/tables-advanced')
 def get_tables_advanced():
 	return render_template("tables-advanced.html")
+=======
 
 # def push_data(latitude, longitude):
 # 	new_car = {"name": "Car1", "location": {"latitude":latitude,"longitude":longitude}}
@@ -38,7 +39,7 @@ def get_tables_advanced():
 # 	print(users.val())
 # 	# db.child("users").push()
 
-@app.route('/get_data', methods=["GET", "POST"])
+# @app.route('/get_data', methods=["GET", "POST"])
 def get_all_data():
 	print("GET_ALL_DATA")
 	vehicles = db.child('vehicles').get()
@@ -49,7 +50,21 @@ def get_all_data():
 	# print(len(vehicles_array))
 	return vehicles_array
 
-# get_all_data()
+def get_all_data_arrs():
+	vehicles = db.child('vehicles').get()
+	vehicles_array = []
+	for vehicle in vehicles.each():
+		v_obj = vehicle.val()
+		v_arr = []
+		for k, v in v_obj.items():
+			if(k!="img_data"):
+				v_arr.append(v)
+			else:
+				for k_i,v_i in v.items():
+					v_arr.append(v_i)
+		vehicles_array.append(v_arr)
+
+	return vehicles_array
 
 
 if __name__ == "__main__":
