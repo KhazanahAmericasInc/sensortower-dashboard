@@ -1,7 +1,11 @@
 
+alert("Alerting");
+
 (function( $ ) {
 
 	'use strict';
+
+	alert("What's up");
 
 	/*
 	Sales Selector
@@ -211,7 +215,7 @@
 		},
 		yaxis: {
 			min: 0,
-			max: 200,
+			max: 400,
 			color: 'rgba(0,0,0,0.1)'
 		},
 		xaxis: {
@@ -265,8 +269,7 @@
 			return res;
 		}
 
-		console.log(getRandomData())
-
+		
 		var flotDashRealTime = $.plot('#flotDashRealTime', [getRandomData()], {
 			colors: ['#8CC9E8'],
 			series: {
